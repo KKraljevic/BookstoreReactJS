@@ -7,9 +7,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedDate } from 'react-intl';
 import bookPhoto from 'images/book.jpg';
 import LoadingIndicator from 'components/LoadingIndicator';
+import moment from 'moment';
 import H2 from './H2';
 import Text from './Text';
 import H3 from './H3';
@@ -37,7 +37,7 @@ const InfoWrapper = styled.div`
   text-align: left;
   margin-top: 30px;
   margin-bottom: auto;
-  width: 30%;
+  width: 46%;
 `;
 function Details({ loading, error, book }) {
   if (loading) {
@@ -51,7 +51,7 @@ function Details({ loading, error, book }) {
   if (book) {
     const writer = book.writer || { firstName: '', lastName: '' };
     const category = book.category || { name: '' };
-
+    const date = book.publishingDate || '';
     return (
       <div>
         <Wrapper>
@@ -69,10 +69,7 @@ function Details({ loading, error, book }) {
             </H3>
             <br />
             <H3>
-              Published:{' '}
-              <Text>
-                <FormattedDate value={new Date(book.publishingDate)} />
-              </Text>
+              Published: <Text>{moment(date).format('DD/MM/YYYY')}</Text>
             </H3>
             <br />
             <H3>

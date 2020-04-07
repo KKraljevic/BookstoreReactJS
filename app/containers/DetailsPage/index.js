@@ -11,7 +11,7 @@ import Details from 'components/Details';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import { useParams } from 'react-router-dom';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
@@ -26,7 +26,8 @@ import { loadBook } from './actions';
 
 export class DetailsPage extends React.Component {
   componentDidMount() {
-    this.props.initBook(32);
+    const { id } = this.props.match.params;
+    this.props.initBook(id);
     console.log(this.props);
   }
 
