@@ -10,28 +10,22 @@ const selectDetailsPageDomain = state => state.detailsPage || initialState;
 /**
  * Other specific selectors
  */
-const makeSelectLoadingBook = () =>
+const makeSelectLoading = () =>
   createSelector(
     selectDetailsPageDomain,
-    substate => substate.loadingBook,
+    substate => substate.loading,
   );
 
-const makeSelectErrorBook = () =>
+const makeSelectError = () =>
   createSelector(
     selectDetailsPageDomain,
-    substate => substate.errorBook,
+    substate => substate.error,
   );
 
 const makeSelectBook = () =>
   createSelector(
     selectDetailsPageDomain,
     substate => substate.book,
-  );
-
-  const makeSelectBookId = () =>
-  createSelector(
-    selectDetailsPageDomain,
-    substate => substate.bookId,
   );
 /**
  * Default selector used by DetailsPage
@@ -48,7 +42,6 @@ export {
   selectDetailsPageDomain,
   makeSelectBook,
   makeSelectDetailsPage,
-  makeSelectErrorBook,
-  makeSelectLoadingBook,
-  makeSelectBookId,
+  makeSelectError,
+  makeSelectLoading,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 import CardLink from './CardLink';
 
 const StyledContainer = styled.div`
@@ -77,18 +77,20 @@ const ActionButton = styled.button`
     opacity: 0.8;
   }
 `;
-var options = { year: 'numeric', month: 'long', day: 'numeric' };
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
 const Card = ({ item }) => (
   <StyledContainer>
-    <CardLink to={{ 
-      pathname:'/details/'+item.id,
-      }}>
-      <StyledPhoto src='https://picsum.photos/120' />
+    <CardLink
+      to={{
+        pathname: `/details/${item.id}`,
+      }}
+    >
+      <StyledPhoto src="https://picsum.photos/120" />
       <Title>{item.title}</Title>
-      <DateTime>{new Date((item.publishingDate).slice(0,10)).toLocaleDateString([], options)}</DateTime>
+      <DateTime>{moment(item.publishingDate).format('DD/MM/YYYY')}</DateTime>
       <Price>$ {item.price}</Price>
     </CardLink>
   </StyledContainer>
-)
+);
 
-export default Card
+export default Card;

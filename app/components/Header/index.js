@@ -16,7 +16,7 @@ const LogoWrapper = styled.div`
   width: 860px;
   position: relative;
   height: 134px;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
 `;
 const NavWrapper = styled.div`
@@ -30,27 +30,18 @@ export function Header() {
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <Logo src={LogoIcon}
-          alt='PW Logo' />
+        <Logo src={LogoIcon} alt="PW Logo" />
         <BrandLink to="/">
           <H1>World.Of.Printed.Words</H1>
         </BrandLink>
-        <hr></hr>
+        <hr />
         <H2>Online Bookstore</H2>
       </LogoWrapper>
       <NavWrapper>
-        <HeaderLink to="/">
-          Home
-      </HeaderLink>
-        <HeaderLink to="/details">
-          Categories
-        </HeaderLink>
-        <HeaderLink to="/">
-          About
-        </HeaderLink>
-        <HeaderLink to="/">
-          Contact
-        </HeaderLink>
+        <HeaderLink to="/">Home</HeaderLink>
+        <HeaderLink to="/details">Categories</HeaderLink>
+        <HeaderLink to="/">About</HeaderLink>
+        <HeaderLink to="/">Contact</HeaderLink>
       </NavWrapper>
     </HeaderWrapper>
   );
@@ -59,4 +50,4 @@ export function Header() {
 Header.propTypes = {};
 
 export default Header;
-//https://picsum.photos/200
+// https://picsum.photos/200
