@@ -29,7 +29,7 @@ const Title = styled.h2`
   }
 `;
 
-const Date = styled.div`
+const DateTime = styled.div`
   color: #ccc;
   font-weight: 300;
   margin: 6px 0;
@@ -77,7 +77,7 @@ const ActionButton = styled.button`
     opacity: 0.8;
   }
 `;
-
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
 const Card = ({ item }) => (
   <StyledContainer>
     <CardLink to={{ 
@@ -85,9 +85,10 @@ const Card = ({ item }) => (
       }}>
       <StyledPhoto src='https://picsum.photos/120' />
       <Title>{item.title}</Title>
-      <Date>{item.publishingDate}</Date>
+      <DateTime>{new Date((item.publishingDate).slice(0,10)).toLocaleDateString([], options)}</DateTime>
       <Price>$ {item.price}</Price>
     </CardLink>
   </StyledContainer>
 )
+
 export default Card
