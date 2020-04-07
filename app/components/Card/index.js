@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 import CardLink from './CardLink';
 
 const StyledContainer = styled.div`
@@ -80,14 +80,16 @@ const ActionButton = styled.button`
 
 const Card = ({ item }) => (
   <StyledContainer>
-    <CardLink to={{ 
-      pathname:'/details/'+item.id,
-      }}>
-      <StyledPhoto src='https://picsum.photos/120' />
+    <CardLink
+      to={{
+        pathname: `/details/${item.id}`,
+      }}
+    >
+      <StyledPhoto src="https://picsum.photos/120" />
       <Title>{item.title}</Title>
-      <Date>{item.publishingDate}</Date>
+      <Date>{moment(item.publishingDate).format('DD/MM/YYYY')}</Date>
       <Price>$ {item.price}</Price>
     </CardLink>
   </StyledContainer>
-)
-export default Card
+);
+export default Card;

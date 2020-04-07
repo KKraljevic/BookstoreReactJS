@@ -1,14 +1,20 @@
-import { take, call, put, takeLatest, takeEvery, all } from 'redux-saga/effects';
-import { featuredBooksLoaded, featuredBooksLoadingError, newBooksLoaded, newBooksLoadingError } from './actions';
-
+import { call, put, takeEvery, all } from 'redux-saga/effects';
 import request from 'utils/request';
+import {
+  featuredBooksLoaded,
+  featuredBooksLoadingError,
+  newBooksLoaded,
+  newBooksLoadingError,
+} from './actions';
+
 import { LOAD_FEATURED, LOAD_NEWBOOKS } from './constants';
+import { API_URL } from '../../utils/constants';
 
 /**
  * Featured request/response handler
  */
 export function* getFeaturedBooks() {
-  const requestURL = `http://localhost:9000/books/featured`;
+  const requestURL = `${API_URL}/books/featured`;
   try {
     const featuredBooks = yield call(request, requestURL);
     yield put(featuredBooksLoaded(featuredBooks));
@@ -28,7 +34,7 @@ export function* loadFeaturedBooks() {
  * New books request/response handler
  */
 export function* getNewBooks() {
-  const requestURL = `http://localhost:9000/books/publishingDate/2019-01-01/2019-12-31?size=4`;
+  const requestURL = `${API_URL}/books/publishingDate/2019-01-01/2019-12-31?size=4`;
   try {
     // Call our request helper (see 'utils/request')
     const newBooks = yield call(request, requestURL);
@@ -37,7 +43,6 @@ export function* getNewBooks() {
   } catch (err) {
     yield put(newBooksLoadingError(err));
   }
-
 }
 /**
  * New books watcher
@@ -49,8 +54,5 @@ export function* loadNewBooks() {
 // Individual exports for testing
 export default function* mainContentSaga() {
   // See example in containers/HomePage/saga.js
-  yield all([
-    loadFeaturedBooks(),
-    loadNewBooks(),
-  ])
+  yield all([loadFeaturedBooks(), loadNewBooks()]);
 }

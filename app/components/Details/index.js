@@ -7,14 +7,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage, FormattedDate } from 'react-intl';
-import messages from './messages';
+import { FormattedDate } from 'react-intl';
 import bookPhoto from 'images/book.jpg';
 import LoadingIndicator from 'components/LoadingIndicator';
 import H2 from './H2';
 import Text from './Text';
 import H3 from './H3';
-import { DateTimeFormat } from 'intl';
 
 const StyledPhoto = styled.img`
   width: 100%;
@@ -42,15 +40,15 @@ const InfoWrapper = styled.div`
   width: 30%;
 `;
 function Details({ loading, error, book }) {
-
-  if (loading || book == undefined) {
+  if (loading) {
     return <LoadingIndicator />;
   }
 
   if (error !== false) {
     return <h2>Something went wrong!</h2>;
   }
-  if (book !== undefined) {
+
+  if (book) {
     const writer = book.writer || { firstName: '', lastName: '' };
     const category = book.category || { name: '' };
 
@@ -58,23 +56,40 @@ function Details({ loading, error, book }) {
       <div>
         <Wrapper>
           <div>
-            <StyledPhoto src={bookPhoto} alt='Book Cover' />
+            <StyledPhoto src={bookPhoto} alt="Book Cover" />
           </div>
           <h1>{book.title}</h1>
-          <H2>- {writer.firstName} {writer.lastName} -</H2>
+          <H2>
+            - {writer.firstName} {writer.lastName} -
+          </H2>
           <hr />
           <InfoWrapper>
-            <H3>Category: <Text>{category.name}</Text></H3>
+            <H3>
+              Category: <Text>{category.name}</Text>
+            </H3>
             <br />
-            <H3>Published: <Text><FormattedDate value={new Date(book.publishingDate)}/></Text></H3>
+            <H3>
+              Published:{' '}
+              <Text>
+                <FormattedDate value={new Date(book.publishingDate)} />
+              </Text>
+            </H3>
             <br />
-            <H3>Number of Pages: <Text>{book.pageNumber}</Text> </H3>
+            <H3>
+              Number of Pages: <Text>{book.pageNumber}</Text>{' '}
+            </H3>
             <br />
-            <H3>Sold: <Text>{book.unitsSold}</Text></H3>
+            <H3>
+              Sold: <Text>{book.unitsSold}</Text>
+            </H3>
             <br />
             <hr />
             <br />
-            <H3><b>Price: <Text>{book.price}</Text></b></H3>
+            <H3>
+              <b>
+                Price: <Text>{book.price}</Text>
+              </b>
+            </H3>
           </InfoWrapper>
         </Wrapper>
       </div>

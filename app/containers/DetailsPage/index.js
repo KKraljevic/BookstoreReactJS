@@ -17,41 +17,45 @@ import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import {
   makeSelectBook,
-  makeSelectErrorBook,
-  makeSelectLoadingBook,
+  makeSelectError,
+  makeSelectLoading,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { loadBook } from './actions';
 
 export class DetailsPage extends React.Component {
-  
   componentDidMount() {
     this.props.initBook(32);
     console.log(this.props);
   }
+
   render() {
-  console.log(this.props.book);
-  return (<div>
-    <Details book={this.props.book} loading={this.props.loadingBook} error={this.props.errorBook} />
-  </div>);
+    console.log(this.props);
+    const { book, loading, error } = this.props;
+    return (
+      <div>
+        <Details book={book} loading={loading} error={error} />
+      </div>
+    );
   }
 }
 DetailsPage.propTypes = {
   book: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  loadingBook: PropTypes.bool,
-  errorBook: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  initBook: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loadingBook: makeSelectLoadingBook(),
-  errorBook: makeSelectErrorBook(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
   book: makeSelectBook(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    initBook: (bookId) => dispatch(loadBook(bookId)),
+    initBook: id => dispatch(loadBook(id)),
   };
 }
 
@@ -66,4 +70,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-  )(DetailsPage);
+)(DetailsPage);
