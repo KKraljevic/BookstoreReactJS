@@ -9,7 +9,7 @@ import { API_URL } from '../../utils/constants';
  * Book request/response handler
  */
 export function* getBook(action) {
-  const id = { action };
+  const id = action.id;
   const requestURL = `${API_URL}/books/${id}`; // Update endpoint url on backend
   try {
     const book = yield call(request, requestURL);

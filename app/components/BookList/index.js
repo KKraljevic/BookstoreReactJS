@@ -7,10 +7,6 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Card from 'components/Card';
 
 function BooksList({ loading, error, books }) {
-  console.log(loading);
-  console.log(error);
-  console.log(books);
-
   if (loading) {
     return <List component={LoadingIndicator} />;
   }

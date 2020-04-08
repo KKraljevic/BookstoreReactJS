@@ -19,7 +19,6 @@ const Ul = styled.ul`
 
 function List(props) {
   const ComponentToRender = props.component;
-  console.log(props.items)
   let content = <div />;
 
   // If we have items, render them

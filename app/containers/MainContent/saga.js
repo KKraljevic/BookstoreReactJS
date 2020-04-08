@@ -18,7 +18,6 @@ export function* getFeaturedBooks() {
   try {
     const featuredBooks = yield call(request, requestURL);
     yield put(featuredBooksLoaded(featuredBooks));
-    console.log(featuredBooks);
   } catch (err) {
     yield put(featuredBooksLoadingError(err));
   }
@@ -39,7 +38,6 @@ export function* getNewBooks() {
     // Call our request helper (see 'utils/request')
     const newBooks = yield call(request, requestURL);
     yield put(newBooksLoaded(newBooks));
-    console.log(newBooks);
   } catch (err) {
     yield put(newBooksLoadingError(err));
   }
