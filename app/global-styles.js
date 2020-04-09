@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   html,
   body {
+    min-height: 100%;
     height: 100%;
     width: 100%;
   }
@@ -17,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
   #app {
     background-color: #fafafa;
+    height: max-content;
     min-height: 100%;
     min-width: 100%;
   }

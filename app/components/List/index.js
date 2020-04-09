@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  height: fit-content;
   padding: 0;
   margin: 0;
   width: 100%;
-  overflow: hidden;
 `;
 
-const Ul = styled.ul`
+const Ul = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
   margin: 0;
   width: 100%;
-  max-height: 30em;
   padding: 0 1em;
 `;
 
@@ -22,9 +23,9 @@ function List(props) {
   let content = <div />;
 
   // If we have items, render them
-  if (props.items!==undefined) {
-    content = props.items.map(item => (
-      <ComponentToRender key={item.id} item={item} />
+  if (props.items !== undefined) {
+    content = props.items.map((item, index) => (
+      <ComponentToRender key={index} item={item} />
     ));
   } else {
     // Otherwise render a single component

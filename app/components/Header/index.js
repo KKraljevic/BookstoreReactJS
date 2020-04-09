@@ -39,9 +39,9 @@ export function Header() {
       </LogoWrapper>
       <NavWrapper>
         <HeaderLink to="/">Home</HeaderLink>
-        <HeaderLink to="/details">Categories</HeaderLink>
+        <HeaderLink to="/categories">Categories</HeaderLink>
+        <HeaderLink to="/overview">Overview</HeaderLink>
         <HeaderLink to="/">About</HeaderLink>
-        <HeaderLink to="/">Contact</HeaderLink>
       </NavWrapper>
     </HeaderWrapper>
   );

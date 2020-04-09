@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 const BooksWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    min-height: fit-content;
-    overflow: auto;
+    flex-wrap: wrap;
+    min-height: max-content;
     margin-top: 0;
     margin-bottom: 20px;
     padding-top: 0;

@@ -13,4 +13,16 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the BooksPage container!',
   },
+  notFoundMsg: {
+    id: `${scope}.notFoundMsg`,
+    defaultMessage: 'No books found! Try with other trems...!',
+  },
+  title: {
+    id: `${scope}.title`,
+    defaultMessage: 'This is the BooksPage container!',
+  },
+  noCategoryBooks: {
+    id: `${scope}.noCategoryBooks`,
+    defaultMessage: 'There is no books in this category yet...',
+  },
 });

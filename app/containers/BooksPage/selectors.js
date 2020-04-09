@@ -10,6 +10,11 @@ const selectBooksPageDomain = state => state.booksPage || initialState;
 /**
  * Other specific selectors
  */
+const makeSelectCategoryBooks = () =>
+  createSelector(
+    selectBooksPageDomain,
+    substate => substate.categoryBooks,
+  );
 
 /**
  * Default selector used by BooksPage
@@ -22,4 +27,4 @@ const makeSelectBooksPage = () =>
   );
 
 export default makeSelectBooksPage;
-export { selectBooksPageDomain };
+export { selectBooksPageDomain, makeSelectCategoryBooks };
