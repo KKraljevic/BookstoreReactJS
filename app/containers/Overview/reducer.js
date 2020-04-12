@@ -45,7 +45,7 @@ const overviewReducer = (state = initialState, action) =>
         draft.priceAgg = { agg: action.priceAgg, loading: false, error: false };
         break;
       case LOAD_PRICEAGG_ERROR:
-        draft.priceAgg = { agg: [], loading: false, error: false };
+        draft.priceAgg = { agg: [], loading: false, error: action.error };
         break;
       case LOAD_PUBLISHINGAGG:
         draft.publishingAgg = { agg: [], loading: true, error: false };
@@ -54,7 +54,7 @@ const overviewReducer = (state = initialState, action) =>
         draft.publishingAgg = { agg: action.publishingAgg, loading: false, error: false };
         break;
       case LOAD_PUBLISHINGAGG_ERROR:
-        draft.publishingAgg = { agg: [], loading: false, error: false };
+        draft.publishingAgg = { agg: [], loading: false, error: action.error };
         break;
       case LOAD_TOP10:
         draft.top10 = { agg: [], loading: true, error: false };
@@ -63,7 +63,7 @@ const overviewReducer = (state = initialState, action) =>
         draft.top10 = { agg: action.top10, loading: false, error: false };
         break;
       case LOAD_TOP10_ERROR:
-        draft.top10 = { agg: [], loading: false, error: false };
+        draft.top10 = { agg: [], loading: false, error: action.error };
         break;
     }
   });

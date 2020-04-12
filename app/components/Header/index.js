@@ -10,20 +10,16 @@ import BrandLink from './BrandLink';
 
 const HeaderWrapper = styled.div`
   background: transparent;
-  height: 170px;
 `;
 const LogoWrapper = styled.div`
   width: 860px;
   position: relative;
-  height: 134px;
   margin-left: auto;
   margin-right: auto;
 `;
 const NavWrapper = styled.div`
-  height: 24px;
-  width: 900px;
   padding-top: 12px;
-  text-align: end;
+  text-align: center;
 `;
 
 export function Header() {
@@ -41,7 +37,7 @@ export function Header() {
         <HeaderLink to="/">Home</HeaderLink>
         <HeaderLink to="/categories">Categories</HeaderLink>
         <HeaderLink to="/overview">Overview</HeaderLink>
-        <HeaderLink to="/">About</HeaderLink>
+        <HeaderLink to="/about">About</HeaderLink>
       </NavWrapper>
     </HeaderWrapper>
   );

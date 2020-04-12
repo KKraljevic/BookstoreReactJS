@@ -18,7 +18,7 @@ export function* getSearchResult() {
   const requestURL = `${API_URL}/books/search/${searchTerm}`;
   try {
     const result = yield call(request, requestURL);
-    yield put(resultLoaded(result));
+    yield put(resultLoaded(result.items));
     yield put(push("/search/" + searchTerm));
   } catch (err) {
     yield put(resultLoadingError(err));
@@ -28,5 +28,5 @@ export function* getSearchResult() {
 // Individual exports for testing
 export default function* searchSaga() {
   // See example in containers/HomePage/saga.js
-  yield takeLatest(LOAD_RESULT, getSearchResult);
+  yield takeEvery(LOAD_RESULT, getSearchResult);
 }

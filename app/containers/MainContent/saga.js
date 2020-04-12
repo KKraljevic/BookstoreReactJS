@@ -17,7 +17,7 @@ export function* getFeaturedBooks() {
   const requestURL = `${API_URL}/books/featured`;
   try {
     const featuredBooks = yield call(request, requestURL);
-    yield put(featuredBooksLoaded(featuredBooks));
+    yield put(featuredBooksLoaded(featuredBooks.items));
   } catch (err) {
     yield put(featuredBooksLoadingError(err));
   }
@@ -37,7 +37,7 @@ export function* getNewBooks() {
   try {
     // Call our request helper (see 'utils/request')
     const newBooks = yield call(request, requestURL);
-    yield put(newBooksLoaded(newBooks));
+    yield put(newBooksLoaded(newBooks.items));
   } catch (err) {
     yield put(newBooksLoadingError(err));
   }

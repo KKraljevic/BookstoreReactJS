@@ -6,7 +6,7 @@ import CardLink from './CardLink';
 const StyledContainer = styled.div`
   display: inline-block;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 0;
+  margin-top: 10px;
   margin-bottom: 0;
   margin-left: 20px;
   background-color: white;

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import bookPhoto from 'images/book.jpg';
 import LoadingIndicator from 'components/LoadingIndicator';
+import ErrMsg from 'components/ErrMsg';
 import moment from 'moment';
 import H2 from './H2';
 import Text from './Text';
@@ -45,7 +46,7 @@ function Details({ loading, error, book }) {
   }
 
   if (error !== false) {
-    return <h2>Something went wrong!</h2>;
+    return <ErrMsg>{error.message}</ErrMsg>;
   }
 
   if (book) {

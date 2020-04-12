@@ -28,10 +28,10 @@ import SearchInput from './Input';
 import Form from './Form';
 
 const H2 = styled.h2`
-font: normal 120% "century gothic", arial, sans-serif;
   padding: 0;
-  margin-right: 1em;
   color: #A8AA94;
+  letter-spacing: 3px;
+  font-weight: 350;
   display: inline-block;
 `;
 

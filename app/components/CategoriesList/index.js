@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import List from 'components/List';
-import ListItem from 'components/ListItem';
+import ErrMsg from 'components/ErrMsg';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Card from './Card';
 
@@ -12,10 +12,7 @@ function CategoriesList({ loading, error, categories }) {
   }
 
   if (error !== false) {
-    const ErrorComponent = () => (
-      <ListItem item="Something went wrong, please try again!" />
-    );
-    return <List component={ErrorComponent} />;
+    return <ErrMsg primary >{error.message}</ErrMsg>;
   }
 
   if (categories !== false && categories !== undefined) {
@@ -28,7 +25,7 @@ function CategoriesList({ loading, error, categories }) {
 CategoriesList.propTypes = {
   loading: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   error: PropTypes.any,
-  categories: PropTypes.PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  categories: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 export default CategoriesList;

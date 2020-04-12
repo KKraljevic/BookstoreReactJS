@@ -5,28 +5,25 @@
  */
 
 import React, { memo } from 'react';
-import PropTypes, { node } from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 import reducer from './reducer';
 import saga from './saga';
-import { createStructuredSelector } from 'reselect';
-import { makeSelectPriceAgg, makeSelectPublishingAgg, makeSelectTop10 } from './selectors';
 import { compose } from 'redux';
-import rd3 from 'react-d3-library';
-import nodePricePie from './charts/priceChartData';
-import nodePublishingBar from './charts/publishingChartData';
-import nodeTop10Chart from './charts/top10ChartData';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectAllCategories } from 'containers/CategoriesPage/selectors';
+import { makeSelectPriceAgg, makeSelectPublishingAgg, makeSelectTop10 } from './selectors';
+import { loadCategories } from 'containers/CategoriesPage/actions';
 import { loadPublishingAgg, loadPriceAgg, loadTop10 } from './actions';
-const PieChart = rd3.PieChart;
-const BarChart = rd3.BarChart;
 
+import MyPieChart from 'components/MyPieChart';
+import MyBubbleChart from 'components/MyBubbleChart';
+import MyBarChart from 'components/MyBarChart';
 
 const Wrapper = styled.div`
     display: flex;
@@ -57,45 +54,42 @@ const Title = styled.h2`
 
 class Overview extends React.Component {
   componentDidMount() {
+    this.props.initCategories();
     this.props.initPublishingAgg();
     this.props.initPriceAgg();
     this.props.initTop10();
   }
-
   render() {
-    const { priceAgg, publishingAgg, top10 } = this.props;
-    console.log(this.props);
-    const nodePrice = nodePricePie;
-    const nodePublishing = nodePublishingBar;
-    const nodeTop10 = nodeTop10Chart;
-    if (top10.agg !== undefined)
-      nodeTop10.dataSet = top10.agg;
-    if (priceAgg.agg !== undefined)
-      nodePrice.dataSet = priceAgg.agg;
-    if (publishingAgg.agg !== undefined) {
-      nodePublishing.dataSet = publishingAgg.agg.map(item => {
-        return {
-          label: item.label,
-          value: item.quantity,
-        };
-      });
-    }
+    const { allCategories, priceAgg, publishingAgg, top10 } = this.props;
+
     return (
       <Wrapper>
         <StyledContainer>
           <Title>Bookstore Price Range</Title>
           <hr />
-          <PieChart data={nodePrice} />
+          <MyPieChart
+            loading={priceAgg.loading}
+            error={priceAgg.error}
+            data={priceAgg.agg}
+          />
         </StyledContainer>
         <StyledContainer>
           <Title>Books Count by Publishing Year </Title>
           <hr />
-          <BarChart data={nodePublishingBar} />
+          <MyBarChart
+            loading={publishingAgg.loading}
+            error={publishingAgg.error}
+            data={publishingAgg.agg}
+          />
         </StyledContainer>
         <StyledContainer>
           <Title>Top 10 Bestseller Books</Title>
           <hr />
-          <PieChart data={nodeTop10} />
+          <MyBubbleChart
+            loading={top10.loading}
+            error={top10.error}
+            data={top10.agg}
+          />
         </StyledContainer>
       </Wrapper>
     )
@@ -103,15 +97,18 @@ class Overview extends React.Component {
 };
 
 Overview.propTypes = {
+  allCategories: PropTypes.object,
   priceAgg: PropTypes.object,
   publishingAgg: PropTypes.object,
   top10: PropTypes.object,
+  initCategories: PropTypes.func,
   initPriceAgg: PropTypes.func,
   initPublishingAgg: PropTypes.func,
   initTop10: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
+  allCategories: makeSelectAllCategories(),
   priceAgg: makeSelectPriceAgg(),
   publishingAgg: makeSelectPublishingAgg(),
   top10: makeSelectTop10(),
@@ -119,6 +116,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    initCategories: () => dispatch(loadCategories()),
     initPriceAgg: () => dispatch(loadPublishingAgg()),
     initPublishingAgg: () => dispatch(loadPriceAgg()),
     initTop10: () => dispatch(loadTop10()),
@@ -136,4 +134,5 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
+  memo
 )(Overview);

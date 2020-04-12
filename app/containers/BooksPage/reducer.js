@@ -29,7 +29,7 @@ const booksPageReducer = (state = initialState, action) =>
         draft.categoryBooks = { books: action.categoryBooks, loading: false, error: false };
         break;
       case LOAD_CATEGORY_BOOKS_ERROR:
-        draft.categoryBooks = { books: [], loading: false, error: true };
+        draft.categoryBooks = { books: [], loading: false, error: action.error };
         break;
     }
   });

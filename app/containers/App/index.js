@@ -16,6 +16,7 @@ import MainContent from 'containers/MainContent/Loadable';
 import DetailsPage from 'containers/DetailsPage/Loadable';
 import BooksPage from 'containers/BooksPage/Loadable';
 import CategoriesPage from 'containers/CategoriesPage/Loadable';
+import InfoPage from 'containers/InfoPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
@@ -30,6 +31,7 @@ export default function App() {
       <Search />
       <Switch>
         <Route exact path="/" component={MainContent} />
+        <Route exact path="/about" component={InfoPage} />
         <Route exact path="/categories" component={CategoriesPage} />
         <Route path="/categories/:name" component={BooksPage} />
         <Route exact path="/overview" component={Overview} />

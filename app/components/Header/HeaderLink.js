@@ -11,11 +11,7 @@ export default styled(Link)`
   cursor: pointer;
   outline: 0;
   color: grey;
-  font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   vertical-align: bottom;
 
-  &:active {
-    font-weight: bold;
-  }
 `;

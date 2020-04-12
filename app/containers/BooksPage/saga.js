@@ -11,7 +11,7 @@ export function* getCategoryBooks(action) {
   const requestURL = `${API_URL}/books/category/${name}`; // Update endpoint url on backend
   try {
     const books = yield call(request, requestURL);
-    yield put(categoryBooksLoaded(books));
+    yield put(categoryBooksLoaded(books.items));
   } catch (err) {
     yield put(categoryBooksLoadingError(err));
   }

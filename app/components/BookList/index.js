@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import List from 'components/List';
-import ListItem from 'components/ListItem';
+import ErrMsg from 'components/ErrMsg';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Card from 'components/Card';
 
@@ -12,10 +12,7 @@ function BooksList({ loading, error, books }) {
   }
 
   if (error !== false) {
-    const ErrorComponent = () => (
-      <ListItem item="Something went wrong, please try again!" />
-    );
-    return <List component={ErrorComponent} />;
+    return <ErrMsg primary >{error.message}</ErrMsg>;
   }
 
   if (books !== false && books !== undefined) {
@@ -28,7 +25,7 @@ function BooksList({ loading, error, books }) {
 BooksList.propTypes = {
   loading: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   error: PropTypes.any,
-  books: PropTypes.PropTypes.oneOfType([PropTypes.array,PropTypes.bool]),
+  books: PropTypes.PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 export default BooksList;

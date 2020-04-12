@@ -24,7 +24,6 @@ import CategoriesList from 'components/CategoriesList';
 export class CategoriesPage extends React.Component {
   componentDidMount() {
     this.props.initCategories();
-    console.log(this.props);
   }
 
   render() {
@@ -37,7 +36,10 @@ export class CategoriesPage extends React.Component {
         </Helmet>
         <div>
           <Wrapper>
-            <CategoriesList {...allCategories} />
+            <CategoriesList
+              loading={allCategories.loading}
+              error={allCategories.error}
+              categories={allCategories.categories} />
           </Wrapper>
         </div>
       </div>

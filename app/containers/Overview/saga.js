@@ -10,6 +10,7 @@ import {
   top10LoadingError,
 } from './actions';
 import { LOAD_PRICEAGG, LOAD_PUBLISHINGAGG, LOAD_TOP10 } from './constants';
+import categoriesPageSaga from 'containers/CategoriesPage/saga';
 
 export function* getPriceAgg() {
   const requestURL = `${API_URL}/books/agg/price`;
@@ -18,6 +19,7 @@ export function* getPriceAgg() {
     console.log(priceAgg);
     yield put(priceAggLoaded(priceAgg));
   } catch (err) {
+    console.log(err)
     yield put(priceAggLoadingError(err));
   }
 }
@@ -56,5 +58,5 @@ export function* loadTop10Agg() {
 
 // Individual exports for testing
 export default function* overviewSaga() {
-  yield all([loadPriceAgg(), loadPublishingAgg(), loadTop10Agg()]);
+  yield all([loadPriceAgg(), loadPublishingAgg(), loadTop10Agg(), categoriesPageSaga()]);
 }
