@@ -35,7 +35,7 @@ export default function App() {
         <Route exact path="/categories" component={CategoriesPage} />
         <Route path="/categories/:name" component={BooksPage} />
         <Route exact path="/overview" component={Overview} />
-        <Route exact path="/search/:searchTerm" component={BooksPage} />
+        <Route exact path="/search/:searchTerm?" component={BooksPage} />
         <Route path="/details/:id" component={DetailsPage} />
         <Route component={NotFoundPage} />
       </Switch>

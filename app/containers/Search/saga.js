@@ -12,10 +12,7 @@ import { API_URL } from '../../utils/constants';
 export function* getSearchResult() {
   const searchTerm = yield select(makeSelectQuery());
   console.log(searchTerm);
-  if (searchTerm == '') {
-    yield put(push("/"));
-  }
-  const requestURL = `${API_URL}/books/search/${searchTerm}`;
+  var requestURL = `${API_URL}/books/search?searchInput=${searchTerm}`;
   try {
     const result = yield call(request, requestURL);
     yield put(resultLoaded(result.items));

@@ -1,8 +1,10 @@
-const createPieChart = data => {
+const createPieChart = (data) => {
+    let margin = { top: 20, right: 30, bottom: 40, left: 90 },
+        width = 570 - margin.left - margin.right,
+        height = 330 - margin.top - margin.bottom;
+
     var node = document.createElement('div');
 
-    var width = 500;
-    var height = 300;
     var colors = ["#ED6A5A", "#F4F1BB", "#9BC1BC", "#5CA4A9", "#E6EBE0", "#70587C"];
     var arcClass = 'arc';
     var r = Math.min(width, height) / 2;
@@ -63,5 +65,5 @@ const createPieChart = data => {
     }
 
     return node;
-}
+};
 export default createPieChart;

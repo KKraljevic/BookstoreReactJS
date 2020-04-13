@@ -44,8 +44,11 @@ export class BooksPage extends React.Component {
       modeSearch = true;
     }
   }
-
+  componentWillReceiveProps(newProps) {
+    console.log(newProps.resultBooks);
+  }
   render() {
+    console.log(this.props);
     const fields = [
       'title', 'category', 'writer', 'popularity', 'publishing date', 'price'
     ];
@@ -76,7 +79,8 @@ export class BooksPage extends React.Component {
 
     if (modeSearch) {
       const resultBooks = this.props.resultBooks;
-      if (!resultBooks.books) {
+
+      if (!resultBooks.books[0]) {
         return (
           <Wrapper>
             <center>

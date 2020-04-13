@@ -52,7 +52,6 @@ export default function NotFound() {
         <H1>Oops!</H1>
         <H2>404 - The Page can't be found</H2>
       </TextWrapper>
-      <Button href="/" as="a">Home</Button>
     </Wrapper>
   );
 }
