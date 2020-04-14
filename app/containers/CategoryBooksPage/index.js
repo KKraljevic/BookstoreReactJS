@@ -1,44 +1,80 @@
 /**
  *
- * BooksPage
+ * CategoryBooksPage
  *
  */
 
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import messages from './messages';
-import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import { makeSelectResult, makeSelectPaginationResult } from 'containers/Search/selectors';
-import { changeSort, changeOrder, changeSize, changePage } from '../Search/actions';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { makeSelectCategoryBooks, makeSelectPaginationCatBooks } from './selectors';
+import { loadCategoryBooks, changeOrder, changeSize, changeSort, changePage, setCurrentCategory } from './actions';
+import reducer from './reducer';
+import saga from './saga';
+import messages from './messages';
 
+import styled from 'styled-components';
+import BookList from 'components/BookList';
+import Form from './Form';
+import PageButton from './PageButton';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import 'components/Toggle/styleToggle.css';
-import BooksWrapper from './BooksWrapper';
-import ButtonsWrapper from './ButtonsWrapper';
-import Wrapper from './Wrapper';
-import BookList from 'components/BookList';
-import PageButton from './PageButton';
-import Form from './Form';
-import H1 from 'components/H1';
+import './styleToggle.css';
 
-export class BooksPage extends React.Component {
+const BooksWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: fit-content;
+    overflow: auto;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-top: 0;
+    padding-bootom: 0;
+`;
+const ButtonsWrapper = styled.div`
+    display: block;
+    min-height: fit-content;
+    overflow: auto;
+    text-align: center;
+`;
+export class CategoryBooksPage extends React.Component {
+  constructor(props) {
+    super(props);
+    const { name } = this.props.match.params;
+    this.props.setCategory(name);
+  }
+
+  componentDidMount() {
+    const { name } = this.props.match.params;
+    this.props.initCategoryBooks(name);
+  }
 
   render() {
-    console.log("BooksPage");
-    console.log(this.props);
-    const { resultBooks, resultPagination } = this.props;
-
+    const { currentCategory, categoryBooks, catBooksPagination } = this.props;
     let content = <div />;
+    if (!categoryBooks.books) {
+      content = (
+        <Wrapper>
+          <center>
+            <H1><FormattedMessage {...messages.noCategoryBooks} /></H1>
+          </center>
+        </Wrapper>
+      );
+    }
+    else {
+
+      content = <BookList {...categoryBooks} />
+    };
 
     const fields = [
       //      { value: 'title.keyword', label: 'title' },
-      { value: 'category.name.keyword', label: 'category' },
       { value: 'writer.firstName.keyword', label: 'writer' },
       { value: 'unitsSold', label: 'popularity' },
       { value: 'publishingDate', label: 'publishing date' },
@@ -56,33 +92,18 @@ export class BooksPage extends React.Component {
       { value: '32', label: '32' },
       { value: '64', label: '64' },
     ];
-
-    var currentPage = resultPagination.currentPage;
+    var currentPage = catBooksPagination.currentPage;
     let hasNext = () => {
-      return (resultPagination.currentPage + 1) <= resultPagination.totalPages ? false : true;
+      return (catBooksPagination.currentPage + 1) <= catBooksPagination.totalPages ? false : true;
     }
     let hasPrev = () => {
-      return (resultPagination.currentPage - 1) > 0 ? false : true
+      return (catBooksPagination.currentPage - 1) > 0 ? false : true
     }
-
-    if (!resultBooks.books[0]) {
-      content = (
-        <Wrapper>
-          <center>
-            <H1><FormattedMessage {...messages.notFoundMsg} /></H1>
-          </center>
-        </Wrapper>
-      );
-    }
-    else {
-      content = <BookList {...resultBooks} />
-    }
-
     return (
       <div>
         <Helmet>
-          <title>Search Result</title>
-          <meta name="description" content="Search result" />
+          <title>Category Books</title>
+          <meta name="description" content="Category Books Page" />
         </Helmet>
         <BooksWrapper>
           <Form >
@@ -93,7 +114,7 @@ export class BooksPage extends React.Component {
               className="dropdownRoot"
               controlClassName="dropdownControl"
               options={fields} onChange={this.props.onChangeSort}
-              value={resultPagination.sort}
+              value={catBooksPagination.sort}
             />
             <label htmlFor="order">Order</label>
             <Dropdown
@@ -101,7 +122,7 @@ export class BooksPage extends React.Component {
               className="dropdownRoot"
               controlClassName="dropdownControl"
               options={order} onChange={this.props.onChangeOrder}
-              value={resultPagination.order}
+              value={catBooksPagination.order}
             />
             <label htmlFor="size">Books per page</label>
             <Dropdown
@@ -109,7 +130,7 @@ export class BooksPage extends React.Component {
               className="dropdownRoot"
               controlClassName="dropdownControl"
               options={sizes} onChange={this.props.onChangeSize}
-              value={resultPagination.size.toString()}
+              value={catBooksPagination.size.toString()}
               placeholder="Books per page"
             />
           </Form >
@@ -120,21 +141,21 @@ export class BooksPage extends React.Component {
             disabled={hasPrev()}
             onClick={(e) => { this.props.switchPage(e, currentPage - 1) }}
           >Prev</PageButton>
-          {this.props.resultPagination.currentPage}
+          {this.props.catBooksPagination.currentPage}
           <PageButton
             disabled={hasNext()}
             onClick={(e) => { this.props.switchPage(e, currentPage + 1) }}
           >Next</PageButton>
         </ButtonsWrapper>
-      </div>
+      </div >
     );
-
   }
 }
-
-BooksPage.propTypes = {
-  resultBooks: PropTypes.object,
-  resultPagination: PropTypes.object,
+CategoryBooksPage.propTypes = {
+  currentCategory: PropTypes.object,
+  categoryBooks: PropTypes.object,
+  catBooksPagination: PropTypes.object,
+  initCategoryBooks: PropTypes.func,
   onChangeOrder: PropTypes.func,
   onChangeSize: PropTypes.func,
   onChangeSort: PropTypes.func,
@@ -142,16 +163,18 @@ BooksPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  resultBooks: makeSelectResult(),
-  resultPagination: makeSelectPaginationResult(),
+  categoryBooks: makeSelectCategoryBooks(),
+  catBooksPagination: makeSelectPaginationCatBooks(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
+    initCategoryBooks: name => dispatch(loadCategoryBooks(name)),
+    setCategory: name => dispatch(setCurrentCategory(name)),
     onChangeSort: evt => dispatch(changeSort(evt.value)),
     onChangeSize: evt => dispatch(changeSize(evt.value)),
     onChangeOrder: evt => dispatch(changeOrder(evt.value)),
-    switchPage: (e, page) => dispatch(changePage(page)),
+    switchPage: (evt, page) => dispatch(changePage(page)),
   };
 }
 
@@ -160,7 +183,12 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
+
+const withReducer = injectReducer({ key: 'categoryBooksPage', reducer });
+const withSaga = injectSaga({ key: 'categoryBooksPage', saga });
 export default compose(
+  withSaga,
+  withReducer,
   withConnect,
   memo,
-)(BooksPage);
+)(CategoryBooksPage);

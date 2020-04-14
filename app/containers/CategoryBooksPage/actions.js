@@ -1,14 +1,21 @@
 /*
  *
- * BooksPage actions
+ * CategoryBooksPage actions
  *
  */
 
 import {
   LOAD_CATEGORY_BOOKS,
+  LOAD_CATEGORY_BOOKS_ERROR,
   LOAD_CATEGORY_BOOKS_SUCCESS,
-  LOAD_CATEGORY_BOOKS_ERROR
+  CHANGE_SIZE,
+  CHANGE_ORDER,
+  CHANGE_SORT,
+  CHANGE_PAGE,
+  CHANGE_PAGINATION,
+  SET_CURRENT_CATEGORY
 } from './constants';
+
 
 /**
  * Load the books by category, this action starts the request saga
@@ -49,3 +56,39 @@ export function categoryBooksLoadingError(error) {
     error,
   };
 }
+export function setCurrentCategory(currentCategory) {
+  return {
+    type: SET_CURRENT_CATEGORY,
+    currentCategory,
+  };
+}
+export function changeSort(sort) {
+  return {
+    type: CHANGE_SORT,
+    sort,
+  };
+}
+export function changeSize(size) {
+  return {
+    type: CHANGE_SIZE,
+    size,
+  };
+}
+export function changeOrder(order) {
+  return {
+    type: CHANGE_ORDER,
+    order,
+  }
+};
+export function changePage(page) {
+  return {
+    type: CHANGE_PAGE,
+    page,
+  }
+};
+export function changePagination(pagination) {
+  return {
+    type: CHANGE_PAGINATION,
+    pagination,
+  }
+};

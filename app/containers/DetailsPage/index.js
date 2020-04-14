@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Details from 'components/Details';
@@ -36,6 +37,10 @@ export class DetailsPage extends React.Component {
     const { book, loading, error } = this.props;
     return (
       <div>
+        <Helmet>
+          <title>Book Details</title>
+          <meta name="description" content="Book Details: title, writer, price, publishing date" />
+        </Helmet>
         <Details book={book} loading={loading} error={error} />
       </div>
     );

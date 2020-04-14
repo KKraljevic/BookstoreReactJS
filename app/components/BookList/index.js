@@ -16,7 +16,7 @@ function BooksList({ loading, error, books }) {
   }
 
   if (books !== false && books !== undefined) {
-    return <List items={books || []} component={Card} />
+    return <List items={books} component={Card} />
   }
 
   return null;

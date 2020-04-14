@@ -13,7 +13,6 @@ const StyledContainer = styled.div`
   text-align: center;
   width: 23%;
   float: left;
-
 `;
 
 const StyledPhoto = styled.img`
@@ -28,7 +27,13 @@ const Title = styled.h2`
     font-size: 1rem;
   }
 `;
-
+const Writer = styled.h3`
+  color: darkgrey;
+  font-weight: 300;
+  @media (max-width: 500px) {
+    font-size: 0.8rem;
+  }
+`;
 const DateTime = styled.div`
   color: #ccc;
   font-weight: 300;
@@ -54,7 +59,7 @@ const Card = ({ item }) => (
         pathname: `/details/${item.id}`,
       }}
     >
-      <StyledPhoto src="https://picsum.photos/120" />
+      <StyledPhoto src="https://picsum.photos/300" />
       <Title>{item.title}</Title>
       <DateTime>{moment(item.publishingDate).format('DD/MM/YYYY')}</DateTime>
       <Price>$ {item.price}</Price>

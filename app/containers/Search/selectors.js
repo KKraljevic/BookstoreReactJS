@@ -28,10 +28,33 @@ const makeSelectLoadingResult = () =>
     substate => substate.loadingResult,
   );
 
-  const makeSelectQuery = () =>
+const makeSelectQuery = () =>
   createSelector(
     selectSearchDomain,
-    substate => substate.query,
+    substate => substate.searchTerm,
+  );
+
+const makeSelectPaginationResult = () =>
+  createSelector(
+    selectSearchDomain,
+    substate => substate.resultPagination,
+  );
+const makeSelectSort = () =>
+  createSelector(
+    selectSearchDomain,
+    substate => substate.resultPagination.sort,
+  );
+
+const makeSelectSize = () =>
+  createSelector(
+    selectSearchDomain,
+    substate => substate.resultPagination.size,
+  );
+
+const makeSelectOrder = () =>
+  createSelector(
+    selectSearchDomain,
+    substate => substate.resultPagination.order,
   );
 
 /**
@@ -51,4 +74,8 @@ export {
   makeSelectLoadingResult,
   makeSelectErrorResult,
   makeSelectQuery,
+  makeSelectPaginationResult,
+  makeSelectSort,
+  makeSelectSize,
+  makeSelectOrder,
 };

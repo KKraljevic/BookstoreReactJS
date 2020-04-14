@@ -31,8 +31,8 @@ export class CategoriesPage extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>CategoriesPage</title>
-          <meta name="description" content="Description of BooksPage" />
+          <title>All Categories</title>
+          <meta name="description" content="All categories available" />
         </Helmet>
         <div>
           <Wrapper>

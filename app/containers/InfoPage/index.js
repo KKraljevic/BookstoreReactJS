@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -22,6 +23,10 @@ const Wrapper = styled.div`
 export function InfoPage() {
   return (
     <Wrapper>
+      <Helmet>
+        <title>About</title>
+        <meta name="description" content="About bookstore World of Printed Words" />
+      </Helmet>
       <H1>About</H1>
       <hr />
       <p>

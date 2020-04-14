@@ -8,7 +8,12 @@ import {
   CHANGE_SEARCHTERM,
   LOAD_RESULT,
   LOAD_RESULT_ERROR,
-  LOAD_RESULT_SUCCESS
+  LOAD_RESULT_SUCCESS,
+  CHANGE_SEARCH_OPTIONS,
+  CHANGE_SORT,
+  CHANGE_SIZE,
+  CHANGE_ORDER,
+  CHANGE_PAGE,
 } from './constants';
 
 /**
@@ -26,6 +31,43 @@ export function changeSearchTerm(searchTerm) {
 }
 
 /**
+ * Changes the search options
+ *
+ * @param  {object} pagination The new options 
+ *
+ * @return {object} An action object with a type of CHANGE_SEARCH_OPTIONS
+ */
+export function changeSearchOptions(pagination) {
+  return {
+    type: CHANGE_SEARCH_OPTIONS,
+    pagination,
+  };
+}
+export function changeSort(sort) {
+  return {
+    type: CHANGE_SORT,
+    sort,
+  };
+}
+export function changeSize(size) {
+  return {
+    type: CHANGE_SIZE,
+    size,
+  };
+}
+export function changeOrder(order) {
+  return {
+    type: CHANGE_ORDER,
+    order,
+  };
+}
+export function changePage(page) {
+  return {
+    type: CHANGE_PAGE,
+    page,
+  };
+}
+/**
   * Load the results, this action starts the request saga
   * 
   * @return {object} An action object with a type of LOAD_RESULT
@@ -33,6 +75,7 @@ export function changeSearchTerm(searchTerm) {
 export function loadResult() {
   return {
     type: LOAD_RESULT,
+
   };
 }
 

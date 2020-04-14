@@ -1,0 +1,16 @@
+.dropdownControl {
+    outline: none;
+    border: none;
+    border-bottom: 1px dotted #999;
+    background-color: transparent;
+}
+.dropdownRoot {
+    margin-right: 8px;
+}
+.dropdownRoot :last-child {
+    margin-right: none;
+}
+.dropdownPlaceholder {
+    color: lightgrey;
+    letter-spacing: 3px;
+}

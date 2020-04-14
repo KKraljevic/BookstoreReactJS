@@ -53,8 +53,8 @@ export class MainContent extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>MainContent</title>
-          <meta name="description" content="Description of MainContent" />
+          <title>Welcome to Bookstore!</title>
+          <meta name="description" content="Bookstore World of Printed Words" />
         </Helmet>
         <SectionsWrapper>
           <NewBooksSection>
